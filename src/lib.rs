@@ -11,11 +11,11 @@ macro_rules! makero {
 #[macro_export]
 #[cfg(not(doc))]
 macro_rules! makero {
-  ($($attr:meta)* macro_rules! $name:ident $($x:tt)*) => {
-    makero!(_ ($) $name $($attr)* macro_rules! $name $($x)*);
+  ($(#[$attr:meta])* macro_rules! $name:ident $($x:tt)*) => {
+    makero!(_ ($) $name $(#[$attr])* macro_rules! $name $($x)*);
   };
-  (_ ($d:tt) $name:ident $($attr:meta)* $(macro_rules! $fn:ident {$( ($($arg:tt)*) => {$($result:tt)*} $(;)? )*} )*) => {
-    $($attr)*
+  (_ ($d:tt) $name:ident $(#[$attr:meta])* $(macro_rules! $fn:ident {$( ($($arg:tt)*) => {$($result:tt)*} $(;)? )*} )*) => {
+    $(#[$attr])*
     macro_rules! $name {
       $($(
         (_makero (fn $fn $d _makero_return:tt) $($arg)*) => {
