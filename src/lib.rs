@@ -1,9 +1,18 @@
-#![feature(trace_macros)]
+#![doc=include_str!("../README.md")]
 
-#[rustfmt::skip]
-macro_rules! _makero {
-  (($d:tt) macro_rules! $name:ident $($x:tt)*) => {
-    _makero!(_ ($d) $name macro_rules! $name $($x)*);
+/// The `makero` macro; see the [crate level documentation](index.html) for
+/// more details..
+#[macro_export]
+#[cfg(doc)]
+macro_rules! makero {
+  { ... } => { ... };
+}
+
+#[macro_export]
+#[cfg(not(doc))]
+macro_rules! makero {
+  (macro_rules! $name:ident $($x:tt)*) => {
+    makero!(_ ($) $name macro_rules! $name $($x)*);
   };
   (_ ($d:tt) $name:ident $(macro_rules! $fn:ident {$( ($($arg:tt)*) => {$($result:tt)*} $(;)? )*} )*) => {
     macro_rules! $name {
@@ -50,43 +59,4 @@ macro_rules! _makero {
       };
     }
   };
-  ($d:tt) => {
-    macro_rules! makero {
-      ($d($d x:tt)*) => {
-        _makero!(($d) $d ($d x)*);
-      }
-    }
-  };
-}
-
-_makero!($);
-
-makero! {
-  macro_rules! main {
-    () => {
-      is_x!(make_x!())
-    }
-  }
-
-  macro_rules! is_x {
-    (x) => {
-      true
-    };
-    ($($x:tt)*) => {
-      false
-    };
-  }
-
-  macro_rules! make_x {
-    () => {
-      x
-    };
-  }
-}
-
-fn main() {
-  trace_macros!(true);
-  let out = main!();
-  trace_macros!(false);
-  println!("{}", out);
 }
