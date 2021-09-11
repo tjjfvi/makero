@@ -31,4 +31,4 @@ The `makero` macro accepts one or more `macro_rules!` items; only the
 top-most one will be externally visible.
 
 Attributes can be applied to the resulting macro by applying them to the
-`makero` block.
+top-most `macro_rules!` definition.
