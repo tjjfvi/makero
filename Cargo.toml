@@ -1,8 +1,9 @@
 [package]
 name = "makero"
 version = "0.1.0"
-edition = "2018"
+description = "A `macro_rules!` macro to aid in the creation of complex `macro_rules!` macros"
 authors = ["tjjfvi"]
+edition = "2018"
 repository = "https://github.com/tjjfvi/makero"
 license = "MIT"
 keywords = ["macro", "macro_rules"]
