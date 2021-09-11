@@ -7,5 +7,6 @@ repository = "https://github.com/tjjfvi/makero"
 license = "MIT"
 keywords = ["macro", "macro_rules"]
 categories = []
+exclude = ["rustfmt.toml", ".gitignore"]
 
 [dependencies]
